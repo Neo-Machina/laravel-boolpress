@@ -10966,3 +10966,11 @@ a.text-dark:focus {
   }
 }
 
+.showed_card .card-body > *:not(h1) {
+  line-height: 2;
+}
+
+.showed_card .card-body .bold_text {
+  font-weight: bold;
+}
+

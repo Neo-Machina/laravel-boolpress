@@ -1,0 +1,11 @@
+.showed_card {
+    .card-body {
+        &> *:not(h1) {
+            line-height: 2;
+        }
+
+        .bold_text {
+            font-weight: bold;
+        }
+    }
+}
