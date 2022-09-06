@@ -21,7 +21,14 @@
                 <span class="bold_text">Text:</span> {{ $post->content }}
             </p>
 
-            <a class="btn btn-primary" href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" role="button">Edit</a>
+            <a class="btn btn-primary mb-4" href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" role="button">Edit</a>
+            
+            <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post">
+                @csrf
+                @method('DELETE')
+
+                <input type="submit" value="Delete" type="button" class="btn btn-danger">
+            </form>
         </div>
     </div>
 @endsection
