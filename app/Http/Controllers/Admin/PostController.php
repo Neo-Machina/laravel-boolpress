@@ -116,7 +116,7 @@ class PostController extends Controller
 
         $post_to_update->update($form_data);
 
-        return redirect()->return('admin.posts.show', ['post' => $post_to_update->id]);
+        return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
 
     /**
