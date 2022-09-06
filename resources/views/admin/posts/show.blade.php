@@ -20,6 +20,8 @@
             <p class="card-text mt-5">
                 <span class="bold_text">Text:</span> {{ $post->content }}
             </p>
+
+            <a class="btn btn-primary" href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" role="button">Edit</a>
         </div>
     </div>
 @endsection
