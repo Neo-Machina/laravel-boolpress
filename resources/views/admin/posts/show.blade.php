@@ -6,11 +6,19 @@
             <h1 class="card-title">{{ $post->title }}</h1>
 
             <div>
-                <span class="bold_text">Created at:</span> {{ $post->created_at }}
+                <span class="bold_text">Created at:</span> {{ $post->created_at->format('Y F j') }}
             </div>
 
+            @if ($dates_diff > 0)
+                <div>
+                    <span>Created {{ $dates_diff }} day{{ $dates_diff > 1 ? 's' : '' }} ago</span>
+                </div>
+                @else 
+                <div>Created today</div>
+            @endif
+
             <div>
-                <span class="bold_text">Updated at:</span> {{ $post->updated_at }}
+                <span class="bold_text">Updated at:</span> {{ $post->updated_at->format('Y F j') }}
             </div>
 
             <div>
