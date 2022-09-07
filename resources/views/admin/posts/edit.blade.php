@@ -21,6 +21,18 @@
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
         </div>
+
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Category</label>
+            <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
+                <option value="">None</option>
+
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="floatingTextarea" name="content" rows="7">{{ old('content', $post->content) }}</textarea>
