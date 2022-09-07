@@ -16,12 +16,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::all();
+        $request_info = $request->all();
+        
+        $deleted_post_alert = isset($request_info['deleted']) ? $request_info['deleted'] : null; 
 
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'deleted_post_alert' => $deleted_post_alert
         ];
 
         return view('admin.posts.index', $data);
@@ -146,7 +150,7 @@ class PostController extends Controller
 
         $post_to_delete->delete();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index', ['deleted' => 'yes']);
     }
 
     protected function getValidationRules() {
