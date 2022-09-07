@@ -25,6 +25,17 @@
                 <span class="bold_text">Slug:</span> {{ $post->slug }}
             </div>
 
+            @if ($post->category)
+                <div>
+                    <span class="bold_text">Category:</span> {{ $post->category->name  }}
+                </div>
+
+                @else 
+                <div>
+                    <span class="bold_text">Category:</span> None
+                </div>
+            @endif
+
             <p class="card-text mt-5">
                 <span class="bold_text">Text:</span> {{ $post->content }}
             </p>
