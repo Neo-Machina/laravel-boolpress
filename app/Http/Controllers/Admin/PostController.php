@@ -112,9 +112,12 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $categories = Category::all();
 
+        $tags = Tag::all();
+
         $data = [
             'post' => $post,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -143,6 +146,12 @@ class PostController extends Controller
 
         $post_to_update->update($form_data);
 
+        if(isset($form_data['tags'])) {
+            $post_to_update->tags()->sync($form_data['tags']);
+        } else {
+            $post_to_update->tags()->sync([]);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
 
@@ -155,7 +164,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
-
+        $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
         return redirect()->route('admin.posts.index', ['deleted' => 'yes']);
@@ -165,7 +174,8 @@ class PostController extends Controller
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:65000',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
         ];
     }
 
