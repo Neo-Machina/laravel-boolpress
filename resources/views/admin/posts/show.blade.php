@@ -36,6 +36,16 @@
                 </div>
             @endif
 
+            <div>
+                <span class="bold_text">Tags:</span> 
+
+                @forelse ($post->tags as $tag)
+                    {{ ($tag->name)}}{{!$loop->last ? ',' : ''}}
+                @empty
+                    none
+                @endforelse
+            </div>     
+
             <p class="card-text mt-5">
                 <span class="bold_text">Text:</span> {{ $post->content }}
             </p>
