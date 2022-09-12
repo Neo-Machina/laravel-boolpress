@@ -1,9 +1,17 @@
 <template>
-    <div>
-        <div class="container">
-            <a href="/admin">Private Admin</a>
-
-            <h1> Work in progress witch Vuejs!!</h1>
-        </div>
-    </div>
+    <main>
+        <Posts />   
+    </main>
 </template>
+
+
+<script>
+import Posts from '../components/Posts.vue';
+
+export default {
+    name: 'App',
+    components: {
+        Posts
+    }
+}    
+</script>
