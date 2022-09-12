@@ -20,9 +20,9 @@
                     <li class="page-item" :class="{ disabled: current_page == 1 }">
                         <a class="page-link" href="#" @click.prevent="getPosts(current_page - 1)">Previous</a>
                     </li>
-                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                    <li v-for="page in last_page" :key="page" class="page-item" :class="{ active: page === current_page }">
+                        <a class="page-link" href="#" @click.prevent="getPosts(page)">{{ page }}</a>
+                    </li>
                     <li class="page-item" :class="{ disabled: current_page == last_page }">
                         <a class="page-link" href="#" @click.prevent="getPosts(current_page + 1)">Next</a>
                     </li>
@@ -39,7 +39,7 @@ export default {
         return {
             posts: [],
             current_page: 1,
-            last_page: null
+            last_page: null,
         };
     },
     methods: {

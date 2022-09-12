@@ -2027,7 +2027,26 @@ var render = function render() {
         return _vm.getPosts(_vm.current_page - 1);
       }
     }
-  }, [_vm._v("Previous")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.last_page, function (page) {
+    return _c("li", {
+      key: page,
+      staticClass: "page-item",
+      "class": {
+        active: page === _vm.current_page
+      }
+    }, [_c("a", {
+      staticClass: "page-link",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          $event.preventDefault();
+          return _vm.getPosts(page);
+        }
+      }
+    }, [_vm._v(_vm._s(page))])]);
+  }), _vm._v(" "), _c("li", {
     staticClass: "page-item",
     "class": {
       disabled: _vm.current_page == _vm.last_page
@@ -2043,7 +2062,7 @@ var render = function render() {
         return _vm.getPosts(_vm.current_page + 1);
       }
     }
-  }, [_vm._v("Next")])])])])])]);
+  }, [_vm._v("Next")])])], 2)])])]);
 };
 
 var staticRenderFns = [];
