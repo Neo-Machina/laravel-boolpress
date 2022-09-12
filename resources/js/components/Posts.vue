@@ -14,6 +14,20 @@
                     </div>
                 </div>
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" :class="{ disabled: current_page == 1 }">
+                        <a class="page-link" href="#" @click.prevent="getPosts(current_page - 1)">Previous</a>
+                    </li>
+                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                    <li class="page-item" :class="{ disabled: current_page == last_page }">
+                        <a class="page-link" href="#" @click.prevent="getPosts(current_page + 1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 </template>
@@ -23,14 +37,22 @@ export default {
     name: 'Posts',
     data() {
         return {
-            posts: []
+            posts: [],
+            current_page: 1,
+            last_page: null
         };
     },
     methods: {
-        getPosts() {
-            axios.get('http://127.0.0.1:8000/api/posts')
+        getPosts(page_number) {
+            axios.get('http://127.0.0.1:8000/api/posts', {
+                params: {
+                    page: page_number
+                }
+            })
             .then((response) => {
-                this.posts = response.data.results;
+                this.posts = response.data.results.data;
+                this.current_page = response.data.results.current_page;
+                this.last_page = response.data.results.last_page;
             });
         },
         cutText(text) {
