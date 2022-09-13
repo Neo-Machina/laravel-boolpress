@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="container">
-            <h1 class="mt-3">Posts List</h1>
+            <h2 class="mt-3 mb-3">Posts List</h2>
 
             <div class="row row-cols-3">
                 <div v-for="post in posts" :key="post.id" class="col mb-4">
@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         getPosts(page_number) {
-            axios.get('http://127.0.0.1:8000/api/posts', {
+            axios.get('/api/posts', {
                 params: {
                     page: page_number
                 }
