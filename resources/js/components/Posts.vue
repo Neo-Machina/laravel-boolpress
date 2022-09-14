@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ post.title }}</h5>
                             <p class="card-text">{{ cutText(post.content) }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <router-link :to="{ name: 'post', params: {slug: post.slug} }" class="btn btn-primary">Read</router-link>
                         </div>
                     </div>
                 </div>

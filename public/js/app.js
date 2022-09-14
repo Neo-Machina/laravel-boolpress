@@ -2052,10 +2052,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SinglePost',
   data: function data() {
-    return {};
+    return {
+      single_post: null
+    };
   },
   mounted: function mounted() {
-    axios.get();
+    var _this = this;
+
+    axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
+      _this.single_post = response.data.post;
+    });
   }
 });
 
@@ -2171,12 +2177,17 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v(_vm._s(_vm.cutText(post.content)))]), _vm._v(" "), _c("a", {
+    }, [_vm._v(_vm._s(_vm.cutText(post.content)))]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
-        href: "#"
+        to: {
+          name: "post",
+          params: {
+            slug: post.slug
+          }
+        }
       }
-    }, [_vm._v("Go somewhere")])])])]);
+    }, [_vm._v("Read")])], 1)])]);
   }), 0), _vm._v(" "), _c("nav", {
     attrs: {
       "aria-label": "Page navigation example"
@@ -2379,7 +2390,12 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Single post")]), _vm._v("\n\n    " + _vm._s(_vm.$route.params.slug) + "\n")]);
+  }, [_vm.single_post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.single_post.title))]), _vm._v(" "), _vm.single_post.category ? _c("div", [_vm._v(" \n            Category: " + _vm._s(_vm.single_post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.single_post.tags.length > 1 ? _c("div", _vm._l(_vm.single_post.tags, function (tag) {
+    return _c("span", {
+      key: tag.id,
+      staticClass: "badge bg-success mr-2"
+    }, [_vm._v(_vm._s(tag.name))]);
+  }), 0) : _vm._e(), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.single_post.content))])]) : _vm._e()]);
 };
 
 var staticRenderFns = [];

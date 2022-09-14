@@ -1,8 +1,18 @@
 <template>
     <div class="container">
-        <h1>Single post</h1>
+        <div v-if="single_post">
+            <h1>{{ single_post.title }}</h1>
 
-        {{ $route.params.slug }}
+            <div v-if="single_post.category"> 
+                Category: {{ single_post.category.name }}
+            </div>
+
+            <div v-if="single_post.tags.length > 1">
+                <span v-for="tag in single_post.tags" :key="tag.id" class="badge bg-success mr-2">{{ tag.name }}</span>
+            </div>
+
+            <div>{{ single_post.content }}</div>
+        </div>
     </div>
 </template>
 
@@ -11,11 +21,14 @@ export default {
     name: 'SinglePost',
     data() {
         return {
-
+            single_post: null
         }
     },
     mounted() {
-        axios.get()
+        axios.get('/api/posts/' + this.$route.params.slug)
+        .then((response) => {
+            this.single_post = response.data.post;
+        })
     }
 }
 </script>
