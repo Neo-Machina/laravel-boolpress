@@ -5,13 +5,7 @@
 
             <div class="row row-cols-3">
                 <div v-for="post in posts" :key="post.id" class="col mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ cutText(post.content) }}</p>
-                            <router-link :to="{ name: 'post', params: {slug: post.slug} }" class="btn btn-primary">Read</router-link>
-                        </div>
-                    </div>
+                    <PostContent  :post="post"/>
                 </div>
             </div>
 
@@ -33,8 +27,13 @@
 </template>
 
 <script>
+import PostContent from './PostContent.vue';
+
 export default {
     name: 'Posts',
+    components: {
+        PostContent
+    },
     data() {
         return {
             posts: [],
@@ -54,12 +53,6 @@ export default {
                 this.current_page = response.data.results.current_page;
                 this.last_page = response.data.results.last_page;
             });
-        },
-        cutText(text) {
-            if(text.length > 100) {
-                return text.slice(0, 100) + '...';
-            } 
-            return text;
         }
     },
     mounted() {
