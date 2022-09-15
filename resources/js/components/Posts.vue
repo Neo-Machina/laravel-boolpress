@@ -11,14 +11,14 @@
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item" :class="{ disabled: current_page == 1 }">
-                        <a class="page-link" href="#" @click.prevent="getPosts(current_page - 1)">Previous</a>
+                    <li class="page-item" :class="{ disabled: $route.query.page == 1 }">
+                        <a class="page-link" href="#" @click.prevent="changePage(+$route.query.page - 1)">Previous</a>
                     </li>
-                    <li v-for="page in last_page" :key="page" class="page-item" :class="{ active: page === current_page }">
-                        <a class="page-link" href="#" @click.prevent="getPosts(page)">{{ page }}</a>
+                    <li v-for="page in last_page" :key="page" class="page-item" :class="{ active: page === $route.query.page }">
+                        <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
                     </li>
-                    <li class="page-item" :class="{ disabled: current_page == last_page }">
-                        <a class="page-link" href="#" @click.prevent="getPosts(current_page + 1)">Next</a>
+                    <li class="page-item" :class="{ disabled: $route.query.page == last_page }">
+                        <a class="page-link" href="#" @click.prevent="changePage(+$route.query.page + 1)">Next</a>
                     </li>
                 </ul>
             </nav>
@@ -37,22 +37,25 @@ export default {
     data() {
         return {
             posts: [],
-            current_page: 1,
             last_page: null,
         };
     },
     methods: {
-        getPosts(page_number) {
+        getPosts() {
             axios.get('/api/posts', {
                 params: {
-                    page: page_number
+                    page: this.$route.query.page
                 }
             })
             .then((response) => {
                 this.posts = response.data.results.data;
-                this.current_page = response.data.results.current_page;
                 this.last_page = response.data.results.last_page;
             });
+        },
+        changePage(numberPage) {
+            this.$router.replace({name: 'blog', query: {page: numberPage}});
+
+            this.getPosts();
         }
     },
     mounted() {

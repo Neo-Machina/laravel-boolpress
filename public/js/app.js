@@ -1923,6 +1923,22 @@ __webpack_require__.r(__webpack_exports__);
         routeName: 'blog'
       }]
     };
+  },
+  methods: {
+    setRouteQuery: function setRouteQuery(routeName) {
+      if (routeName == 'blog') {
+        return {
+          name: routeName,
+          query: {
+            page: 1
+          }
+        };
+      }
+
+      return {
+        name: routeName
+      };
+    }
   }
 });
 
@@ -1974,23 +1990,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      current_page: 1,
       last_page: null
     };
   },
   methods: {
-    getPosts: function getPosts(page_number) {
+    getPosts: function getPosts() {
       var _this = this;
 
       axios.get('/api/posts', {
         params: {
-          page: page_number
+          page: this.$route.query.page
         }
       }).then(function (response) {
         _this.posts = response.data.results.data;
-        _this.current_page = response.data.results.current_page;
         _this.last_page = response.data.results.last_page;
       });
+    },
+    changePage: function changePage(numberPage) {
+      this.$router.replace({
+        name: 'blog',
+        query: {
+          page: numberPage
+        }
+      });
+      this.getPosts();
     }
   },
   mounted: function mounted() {
@@ -2151,9 +2174,7 @@ var render = function render() {
     }, [_c("router-link", {
       staticClass: "nav-link",
       attrs: {
-        to: {
-          name: link.routeName
-        }
+        to: _vm.setRouteQuery(link.routeName)
       }
     }, [_vm._v(_vm._s(link.label))])], 1);
   }), _vm._v(" "), _vm._m(0)], 2)])])])]);
@@ -2262,7 +2283,7 @@ var render = function render() {
   }, [_c("li", {
     staticClass: "page-item",
     "class": {
-      disabled: _vm.current_page == 1
+      disabled: _vm.$route.query.page == 1
     }
   }, [_c("a", {
     staticClass: "page-link",
@@ -2272,7 +2293,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.getPosts(_vm.current_page - 1);
+        return _vm.changePage(+_vm.$route.query.page - 1);
       }
     }
   }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.last_page, function (page) {
@@ -2280,7 +2301,7 @@ var render = function render() {
       key: page,
       staticClass: "page-item",
       "class": {
-        active: page === _vm.current_page
+        active: page === _vm.$route.query.page
       }
     }, [_c("a", {
       staticClass: "page-link",
@@ -2290,14 +2311,14 @@ var render = function render() {
       on: {
         click: function click($event) {
           $event.preventDefault();
-          return _vm.getPosts(page);
+          return _vm.changePage(page);
         }
       }
     }, [_vm._v(_vm._s(page))])]);
   }), _vm._v(" "), _c("li", {
     staticClass: "page-item",
     "class": {
-      disabled: _vm.current_page == _vm.last_page
+      disabled: _vm.$route.query.page == _vm.last_page
     }
   }, [_c("a", {
     staticClass: "page-link",
@@ -2307,7 +2328,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.getPosts(_vm.current_page + 1);
+        return _vm.changePage(+_vm.$route.query.page + 1);
       }
     }
   }, [_vm._v("Next")])])], 2)])])]);

@@ -5,7 +5,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li v-for="(link, index) in menuLinks" :key="index" class="nav-item">
-                            <router-link :to="{ name: link.routeName }" class="nav-link">{{ link.label }}</router-link>
+                            <router-link :to="setRouteQuery(link.routeName)" class="nav-link">{{ link.label }}</router-link>
                         </li>
 
                         <li>
@@ -37,6 +37,16 @@ export default {
                     routeName: 'blog'
                 }
             ]
+        }
+    },
+    methods: {
+        setRouteQuery(routeName) {
+            if(routeName == 'blog') {
+                return { name: routeName, query: { page: 1 } };
+            } 
+            
+            return { name: routeName };
+            
         }
     }
 }
