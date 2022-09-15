@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        $posts = Post::orderBy('updated_at', 'desc')->paginate(6);
         
         $request_info = $request->all();
 

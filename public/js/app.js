@@ -2191,15 +2191,21 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "card"
+    staticClass: "card h-100"
   }, [_c("div", {
-    staticClass: "card-body"
+    staticClass: "card-body d-flex flex-column"
   }, [_c("h5", {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
-    staticClass: "card-text"
+  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.cover ? _c("img", {
+    staticClass: "w-50 middle mx-auto d-block",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _c("p", {
+    staticClass: "card-text flex-grow-1"
   }, [_vm._v(_vm._s(_vm.cutText(_vm.post.content)))]), _vm._v(" "), _c("router-link", {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-primary w-25",
     attrs: {
       to: {
         name: "post",
@@ -2449,7 +2455,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm.single_post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.single_post.title))]), _vm._v(" "), _vm.single_post.category ? _c("div", [_vm._v(" \n            Category: " + _vm._s(_vm.single_post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.single_post.tags.length > 1 ? _c("div", _vm._l(_vm.single_post.tags, function (tag) {
+  }, [_vm.single_post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.single_post.title))]), _vm._v(" "), _vm.single_post.cover ? _c("img", {
+    staticClass: "w-25",
+    attrs: {
+      src: _vm.single_post.cover,
+      alt: _vm.single_post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _vm.single_post.category ? _c("div", [_vm._v(" \n            Category: " + _vm._s(_vm.single_post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.single_post.tags.length > 1 ? _c("div", _vm._l(_vm.single_post.tags, function (tag) {
     return _c("span", {
       key: tag.id,
       staticClass: "badge bg-success mr-2"

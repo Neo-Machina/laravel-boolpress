@@ -3,6 +3,8 @@
         <div v-if="single_post">
             <h1>{{ single_post.title }}</h1>
 
+            <img class="w-25" v-if="single_post.cover" :src="single_post.cover" :alt="single_post.title">
+
             <div v-if="single_post.category"> 
                 Category: {{ single_post.category.name }}
             </div>
