@@ -46,9 +46,15 @@
                 @endforelse
             </div>     
 
-            <p class="card-text mt-5">
+            <p class="card-text mt-3">
                 <span class="bold_text">Text:</span> {{ $post->content }}
             </p>
+
+            @if ($post->cover)
+                <div>
+                    <img class="w-25 mb-3" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                </div>
+            @endif
 
             <a class="btn btn-primary mb-4" href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" role="button">Edit</a>
             

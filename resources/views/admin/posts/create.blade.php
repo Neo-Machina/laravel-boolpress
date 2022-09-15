@@ -3,7 +3,7 @@
 @section('content')
     <h1>Create a new post</h1>
 
-    <form action="{{ route('admin.posts.store') }}" method="POST">
+    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         @if ($errors->any())
@@ -53,6 +53,11 @@
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="floatingTextarea" name="content" rows="7">{{ old('content') }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" id="image" name="image">
         </div>
           
         <input type="submit" value="Submit">
