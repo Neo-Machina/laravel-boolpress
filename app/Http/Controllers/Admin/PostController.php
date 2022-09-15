@@ -145,11 +145,32 @@ class PostController extends Controller
         $form_data = $request->all();
 
         $post_to_update = Post::findOrFail($id);
+        
+        // Gestione immagine:
+        // se l'immagine è dichiarata nel $form_data
+        if(isset($form_data['image'])) {
+            // Calcello dal disco l'immagine vecchia se già essa esiste
+            if($post_to_update->cover) {
+                Storage::delete($post_to_update->cover);
+            }
+            // faccio l'upload del nuovo file $img_path
+            $img_path = Storage::put('posts_cover', $form_data['image']);
+            // popolo $form_data con l'immagine
+            $form_data['cover'] = $img_path;
+        }
 
         if($form_data['title'] !== $post_to_update->title) {
             $form_data['slug'] = $this->getFreeSlugFromTitle($form_data['title']);
         } else {
             $form_data['slug'] = $post_to_update->slug;
+        }
+        
+        if(isset($form_data['remove-image'])) {
+            if($post_to_update->cover) {
+                Storage::delete($post_to_update->cover);
+            }
+
+            $form_data['cover'] = null;
         }
 
         $post_to_update->update($form_data);
@@ -172,6 +193,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+
+        if($post_to_delete->cover) {
+            Storage::delete($post_to_delete->cover);
+        }
+
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
@@ -184,7 +210,7 @@ class PostController extends Controller
             'content' => 'required|max:65000',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
-            'image' => 'nullable|max:1000|image'
+            'image' => 'mimes:jpg,jpeg,png,gif,webp,svg|max:1024|nullable'
         ];
     }
 

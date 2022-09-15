@@ -3,7 +3,7 @@
 @section('content')
     <h1>Edit the post</h1>
 
-    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="POST">
+    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -70,6 +70,27 @@
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="floatingTextarea" name="content" rows="7">{{ old('content', $post->content) }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" id="image" name="image">
+
+            @if ($post->cover)
+                <div class="mt-2">Currently image:</div>
+                <img class="w-25 mt-3" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->name }}">
+            @endif
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" 
+                    type="checkbox" 
+                    value="remove-image" 
+                    id="remove-image" 
+                    name="remove-image">
+            <label class="form-check-label" for="remove-image">
+                Remove image
+            </label>
         </div>
           
         <input type="submit" value="Edit">
