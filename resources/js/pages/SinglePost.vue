@@ -27,7 +27,11 @@ export default {
     mounted() {
         axios.get('/api/posts/' + this.$route.params.slug)
         .then((response) => {
-            this.single_post = response.data.post;
+            if(response.data.results) {
+                this.single_post = response.data.results;
+            } else {
+                this.$router.push({name: 'notFound'});
+            }
         })
     }
 }

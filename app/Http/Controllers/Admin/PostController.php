@@ -19,10 +19,10 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::paginate(6);
-
-        $request_info = $request->all();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         
+        $request_info = $request->all();
+
         $deleted_post_alert = isset($request_info['deleted']) ? $request_info['deleted'] : null; 
 
         $data = [
