@@ -2006,7 +2006,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.last_page = response.data.results.last_page;
       });
     },
-    changePage: function changePage(numberPage) {
+    changePageQuery: function changePageQuery(numberPage) {
       this.$router.replace({
         name: 'blog',
         query: {
@@ -2293,7 +2293,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.changePage(+_vm.$route.query.page - 1);
+        return _vm.changePageQuery(+_vm.$route.query.page - 1);
       }
     }
   }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l(_vm.last_page, function (page) {
@@ -2311,7 +2311,7 @@ var render = function render() {
       on: {
         click: function click($event) {
           $event.preventDefault();
-          return _vm.changePage(page);
+          return _vm.changePageQuery(page);
         }
       }
     }, [_vm._v(_vm._s(page))])]);
@@ -2328,7 +2328,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.changePage(+_vm.$route.query.page + 1);
+        return _vm.changePageQuery(+_vm.$route.query.page + 1);
       }
     }
   }, [_vm._v("Next")])])], 2)])])]);
@@ -53939,6 +53939,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/blog',
     component: _pages_BlogPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     name: 'blog'
+  }, {
+    path: '/contact',
+    component: ContactPage,
+    name: 'contact'
   }, {
     path: '/blog/:slug',
     component: _pages_SinglePost_vue__WEBPACK_IMPORTED_MODULE_5__["default"],

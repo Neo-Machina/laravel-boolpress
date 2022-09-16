@@ -12,13 +12,13 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item" :class="{ disabled: $route.query.page == 1 }">
-                        <a class="page-link" href="#" @click.prevent="changePage(+$route.query.page - 1)">Previous</a>
+                        <a class="page-link" href="#" @click.prevent="changePageQuery(+$route.query.page - 1)">Previous</a>
                     </li>
                     <li v-for="page in last_page" :key="page" class="page-item" :class="{ active: page === $route.query.page }">
-                        <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+                        <a class="page-link" href="#" @click.prevent="changePageQuery(page)">{{ page }}</a>
                     </li>
                     <li class="page-item" :class="{ disabled: $route.query.page == last_page }">
-                        <a class="page-link" href="#" @click.prevent="changePage(+$route.query.page + 1)">Next</a>
+                        <a class="page-link" href="#" @click.prevent="changePageQuery(+$route.query.page + 1)">Next</a>
                     </li>
                 </ul>
             </nav>
@@ -52,7 +52,7 @@ export default {
                 this.last_page = response.data.results.last_page;
             });
         },
-        changePage(numberPage) {
+        changePageQuery(numberPage) {
             this.$router.replace({name: 'blog', query: {page: numberPage}});
 
             this.getPosts();

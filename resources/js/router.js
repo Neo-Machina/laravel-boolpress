@@ -28,6 +28,11 @@ const router = new VueRouter({
             name: 'blog'
         },
         {
+            path: '/contact',
+            component: ContactPage, 
+            name: 'contact'
+        },
+        {
             path: '/blog/:slug',
             component: SinglePost, 
             name: 'post'
