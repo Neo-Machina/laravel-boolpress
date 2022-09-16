@@ -35,6 +35,10 @@ export default {
                 {
                     label: 'Blog',
                     routeName: 'blog'
+                },
+                {
+                    label: 'Contact',
+                    routeName: 'contact'
                 }
             ]
         }
