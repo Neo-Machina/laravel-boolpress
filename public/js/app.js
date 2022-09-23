@@ -2687,7 +2687,7 @@ var render = function render() {
       src: _vm.single_post.cover,
       alt: _vm.single_post.title
     }
-  }) : _vm._e(), _vm._v(" "), _vm.single_post.category ? _c("div", [_vm._v(" \n            Category: " + _vm._s(_vm.single_post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.single_post.tags.length > 1 ? _c("div", _vm._l(_vm.single_post.tags, function (tag) {
+  }) : _vm._e(), _vm._v(" "), _vm.single_post.category ? _c("div", [_vm._v(" \n            Category: " + _vm._s(_vm.single_post.category.name) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.single_post.tags.length > 0 ? _c("div", _vm._l(_vm.single_post.tags, function (tag) {
     return _c("span", {
       key: tag.id,
       staticClass: "badge bg-success mr-2"

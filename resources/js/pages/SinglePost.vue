@@ -9,7 +9,7 @@
                 Category: {{ single_post.category.name }}
             </div>
 
-            <div v-if="single_post.tags.length > 1">
+            <div v-if="single_post.tags.length > 0">
                 <span v-for="tag in single_post.tags" :key="tag.id" class="badge bg-success mr-2">{{ tag.name }}</span>
             </div>
 

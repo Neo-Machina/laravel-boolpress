@@ -8,7 +8,9 @@ class Tag extends Model
 {
     protected $table = 'tags';
 
+    protected $touches = ['posts'];
+
     public function posts() {
-        return $this->belongsToMany('App/Tag');
+        return $this->belongsToMany('App/Post');
     }
 }
